@@ -11,14 +11,14 @@ class Turn
 
   def type
     # A :basic turn is one in which the rank_of_card_at(0) from the players’ decks are not the same rank.
+    if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2)
+      return :mutually_assured_destruction
+    end
     if @player1.deck.rank_of_card_at(0) != @player2.deck.rank_of_card_at(0)
       return :basic
     end
     if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)
       return :war
-    end
-    if @player1.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(0) && @player2.deck.rank_of_card_at(2)
-      return :mutually_assured_destruction
     end
   end
 
@@ -31,23 +31,23 @@ class Turn
       return [@player1,@player2].max_by do |player|
         player.deck.rank_of_card_at(2)
       end
+    elsif type == :mutually_assured_destruction
+      return "No Winner!"
     end
   end
 
 
   def pile_cards
     if type == :basic
-      player_1_card = @player1.deck.cards.shift
-      player_2_card = @player2.deck.cards.shift
-      @spoils_of_war << player_1_card
-      @spoils_of_war << player_2_card
+      @spoils_of_war << @player1.deck.cards.shift
+      @spoils_of_war << @player2.deck.cards.shift
       @spoils_of_war = @spoils_of_war.flatten
     elsif type == :war
-      player_1_cards = @player1.deck.cards.slice!(0..2)
-      player_2_cards = @player2.deck.cards.slice!(0..2)
-      @spoils_of_war << player_1_cards
-      @spoils_of_war << player_2_cards
+      @spoils_of_war << @player1.deck.cards.slice!(0..2)
+      @spoils_of_war << @player2.deck.cards.slice!(0..2)
       @spoils_of_war = @spoils_of_war.flatten
+    elsif type == :mutually_assured_destruction
+      @spoils_of_war
     end
   end
 
