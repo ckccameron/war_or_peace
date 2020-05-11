@@ -10,7 +10,6 @@ class Turn
   end
 
   def type
-    # A :basic turn is one in which the rank_of_card_at(0) from the players’ decks are not the same rank.
     if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2)
       return :mutually_assured_destruction
     end
