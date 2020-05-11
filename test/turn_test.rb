@@ -24,7 +24,7 @@ class TurnTest < Minitest::Test
 
     turn = Turn.new(player1,player2)
 
-   assert_instance_of Turn, turn
+    assert_instance_of Turn, turn
   end
 
   def test_turn_starts_with_players_and_spoils_of_war
