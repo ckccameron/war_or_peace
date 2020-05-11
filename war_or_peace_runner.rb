@@ -59,5 +59,9 @@ cards = [
   card52 = Card.new(:club, 'Ace', 14)
 ]
 
-deck = Deck.cards(0..51)
+deck1, deck2 = cards.each_slice(cards.size/2.0).to_a
+deck1.flatten
+deck2.flatten
+
+cards.shuffle!
 binding.pry
