@@ -30,8 +30,14 @@ class Turn
       return [@player1,@player2].max_by do |player|
         player.deck.rank_of_card_at(2)
       end
-    elsif type == :mutually_assured_destruction
+    else type == :mutually_assured_destruction
       return "No Winner!"
+    end
+  end
+
+  def basic_winner?
+    return [@player1,@player2].max_by do |player|
+      player.deck.rank_of_card_at(0)
     end
   end
 
